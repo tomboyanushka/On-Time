@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     public Transform cameraTransform;
 
     private Camera cam;
-    private float distance = 10f;
+    private float distance = 20f;
     private float currentX = 0f;
     private float currentY = 0f;
 

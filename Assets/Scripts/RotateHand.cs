@@ -4,38 +4,44 @@ using UnityEngine;
 
 public class RotateHand : MonoBehaviour
 {
-    float seconds = 0.0f;
     float minutes = 0.0f;
     float hours = 0.0f;
     public GameObject hourHand;
     public GameObject minuteHand;
-    public GameObject secondHand;
-   
+    
+    
+
 
     // Use this for initialization
     void Start()
     {
-       // Vector3 secondHandPos = new Vector3(secondHand.transform.rotation);
+       
+        
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        seconds += Time.deltaTime;
+       
         minutes += Time.deltaTime;
         hours += Time.deltaTime;
-        if (seconds >= 0.2)
+
+        if (minutes >= 0.05f)
         {
-            secondHand.transform.Rotate(0,10,0);
-            seconds = 0.0f;
-        }
-        if (minutes >= 7.8f)
-        {
-            minuteHand.transform.Rotate(0, 10, 0);
+            minuteHand.transform.localRotation = Quaternion.Lerp(minuteHand.transform.localRotation, minuteHand.transform.rotation * Quaternion.Euler(0, 90, 0), 0.05f);
             minutes = 0.0f;
+            
         }
 
-        
+        if (hours >= 8f)
+        {
+            hourHand.transform.localRotation = Quaternion.Lerp(hourHand.transform.localRotation, hourHand.transform.rotation * Quaternion.Euler(0, 90, 0), 0.05f);
+            hours = 0.0f;
+            GetComponent<AudioSource>().Play();
+        }
+
+
+
     }
 
   

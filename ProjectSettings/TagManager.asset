@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - cube1
+  - minute
+  - hour
   layers:
   - Default
   - TransparentFX

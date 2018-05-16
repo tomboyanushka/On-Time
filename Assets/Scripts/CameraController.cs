@@ -5,24 +5,25 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Transform target;
-    public Transform cameraTransform;
+    Camera cam;
+    float offset = 5.0f;
+    public float smooth = 2.0f;
 
-   
-    
+    public Vector2 mouseLook;
+    public Vector2 rotate;
+
+    public Quaternion rotateY;
+
+
     void Start()
     {
-        cameraTransform = transform;
-       
-
-
+        
     }
 
-
-    private void LateUpdate()
+    void LateUpdate()
     {
        
-  
-        cameraTransform.LookAt(target.position);
 
+        //transform.LookAt( target + offset);
     }
 }

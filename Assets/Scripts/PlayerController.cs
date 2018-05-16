@@ -4,48 +4,35 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-   public float speed = 4.0f;
-    //public float maxVelocity = 8.0f;
+    public float speed = 10f;
+    public float rotateSpeed = 20f;
+    public float jumpForce = 40.0f;
+    public float gravity = 30.0f;
 
-   
-    Rigidbody rigidbody;
-    float health = 100f;
-    public bool walking = false;
+
+    private Rigidbody rig;
 
     Animator anim;
-    
-    void Start ()
+
+
+    public void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        Vector2 inputDirection = input.normalized;
-
-        if (inputDirection != Vector2.zero)
-        {
-            transform.eulerAngles = Vector3.up * Mathf.Atan2(inputDirection.x , inputDirection.y) * Mathf.Rad2Deg;
-            walking = true;
-        }
-
-        
-        bool jumping = Input.GetKey(KeyCode.Space);
-        float velocity = speed * inputDirection.magnitude;
-        transform.Translate(Vector3.forward * velocity * Time.deltaTime, Space.World);
-        anim.SetInteger("Speed", 1);
+        rig = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void FixedUpdate()
     {
-        if (collision.gameObject.tag == "minute")
-            health -= 20f;
-        else if (collision.gameObject.tag == "hour")
-            health -= 10f;
-  
+
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(h, 0, v) * speed * Time.deltaTime;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.15F);
+
+        transform.Translate(movement * speed * Time.deltaTime, Space.World);
+
+
+
     }
 }

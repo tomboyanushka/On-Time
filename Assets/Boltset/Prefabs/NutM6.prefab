@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 5400000}
-  - component: {fileID: 6400000}
   - component: {fileID: 65307802815883676}
   m_Layer: 0
   m_Name: NutM6
@@ -105,20 +104,6 @@ Rigidbody:
 --- !u!1002 &5400001
 EditorExtensionImpl:
   serializedVersion: 6
---- !u!64 &6400000
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: bf095a345303449cea3f0b14f415799c, type: 3}
 --- !u!1002 &6400001
 EditorExtensionImpl:
   serializedVersion: 6

@@ -7,6 +7,7 @@ TagManager:
   - cube1
   - minute
   - hour
+  - Stand
   layers:
   - Default
   - TransparentFX

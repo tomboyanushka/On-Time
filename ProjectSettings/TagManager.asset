@@ -8,6 +8,7 @@ TagManager:
   - minute
   - hour
   - Stand
+  - Tool
   layers:
   - Default
   - TransparentFX

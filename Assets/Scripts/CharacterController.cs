@@ -12,6 +12,10 @@ public class CharacterController : MonoBehaviour
     public float distToGround = 0.1f;
     public LayerMask Ground;
     public float downwardAccel = 1.0f;
+    private float toolCount = 0;
+    private bool isDead = false;
+
+    Animator anim;
 
     Vector3 velocity = Vector3.zero;
 
@@ -47,6 +51,8 @@ public class CharacterController : MonoBehaviour
         else Debug.LogError("Character needs a rigidbody");
 
         forwardInput = rotateInput = jumpInput = 0;
+
+        anim = GetComponent<Animator>();
 	}
 
     void getInput()
@@ -60,6 +66,17 @@ public class CharacterController : MonoBehaviour
     {
         getInput();
         Rotate();
+
+        if (toolCount == 5 && isDead == false)
+        {
+            PlayerWins();
+        }
+
+        if (health == 0)
+        {
+            isDead = true;
+            PlayerDies();
+        }
     }
 
     private void FixedUpdate()
@@ -78,6 +95,7 @@ public class CharacterController : MonoBehaviour
         }
         else
             velocity.z = 0;
+        anim.Play("Robo2 Idle");
     }
 
     private void Jump()
@@ -126,6 +144,22 @@ public class CharacterController : MonoBehaviour
             Debug.Log(health);
 
         }
+        else if (collision.gameObject.tag == "Tool")
+        {
+            anim.Play("");
+            Destroy(collision.gameObject);
+            toolCount += 1;
+        }
+    }
+
+    void PlayerWins()
+    {
+        Debug.Log("You Win!");
+    }
+
+    void PlayerDies()
+    {
+        Debug.Log("Game Over");
     }
 
 }

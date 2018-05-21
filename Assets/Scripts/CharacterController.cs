@@ -6,15 +6,29 @@ public class CharacterController : MonoBehaviour
 {
 
     public float inputDelay = 0.1f;
-    public float velocity = 12;
+    public float forwardVelocity = 12;
     public float rotateVelocity = 100;
+    public float jumpVelocity = 25;
+    public float distToGround = 0.1f;
+    public LayerMask Ground;
+    public float downwardAccel = 1.0f;
+
+    Vector3 velocity = Vector3.zero;
+
+    bool isGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, distToGround, Ground);
+    }
+
 
     public float health = 100f;
 
     Quaternion playerRotation;
 
     Rigidbody rigidbody;
-    float forwardInput, rotateInput;
+    float forwardInput;
+    float rotateInput;
+    float jumpInput;
 
     public Quaternion PlayerRotation
     {
@@ -31,12 +45,15 @@ public class CharacterController : MonoBehaviour
 
         }
         else Debug.LogError("Character needs a rigidbody");
+
+        forwardInput = rotateInput = jumpInput = 0;
 	}
 
     void getInput()
     {
         forwardInput = Input.GetAxis("Vertical");
         rotateInput = Input.GetAxis("Horizontal");
+        jumpInput = Input.GetAxisRaw("Jump");
     }
 
     private void Update()
@@ -48,16 +65,36 @@ public class CharacterController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+        Jump();
+
+        rigidbody.velocity = transform.TransformDirection(velocity);
     }
 
     private void Move()
     {
         if (Mathf.Abs(forwardInput) > inputDelay)
         {
-            rigidbody.velocity = transform.forward * forwardInput * velocity;
+            velocity.z = forwardInput * forwardVelocity;
         }
         else
-            rigidbody.velocity = Vector3.zero;
+            velocity.z = 0;
+    }
+
+    private void Jump()
+    {
+        if (jumpInput > 0 && isGrounded())
+        {
+            velocity.y = jumpVelocity;
+        }
+        else if (jumpInput == 0 && isGrounded())
+        {
+            velocity.y = 0;
+        }
+        else
+        {
+            velocity.y -= downwardAccel;
+        }
+
     }
 
     private void Rotate()

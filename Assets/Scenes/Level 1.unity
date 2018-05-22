@@ -1155,6 +1155,11 @@ Prefab:
       propertyPath: distToGround
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 95928123375756802, guid: 482e9bd832b2aeb43aa1157e58600bc0,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5c609ffd523487f4ba34327376260438, type: 2}
     m_RemovedComponents:
     - {fileID: 65683669706746076, guid: 482e9bd832b2aeb43aa1157e58600bc0, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 482e9bd832b2aeb43aa1157e58600bc0, type: 2}
@@ -2007,9 +2012,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectibles:
-  - {fileID: 100000, guid: e415ce8b079c6474e9322f800256364c, type: 2}
-  - {fileID: 100000, guid: 0c24714f8a1e6ae4cb08373ba73aaf5c, type: 2}
-  - {fileID: 100000, guid: c8878a451f983b94098398467bca9e15, type: 2}
+  - {fileID: 1440506163569848, guid: 448c9c00f28bf29488e82d6add5187fd, type: 2}
+  - {fileID: 1334840140213576, guid: f37ec49e7a2f0ce48a299ae6d514996b, type: 2}
 --- !u!1 &1622058604
 GameObject:
   m_ObjectHideFlags: 0

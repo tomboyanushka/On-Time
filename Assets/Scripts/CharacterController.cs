@@ -14,11 +14,14 @@ public class CharacterController : MonoBehaviour
     public float downwardAccel = 1.0f;
     private float toolCount = 0;
     private bool isDead = false;
-    public float health = 100.0f;
+    //public float health = 100.0f;
 
+    [SerializeField]
+    private PlayerStat health;
 
     Animator anim;
-    BarScripts barScript;
+    BarScript barScript;
+  
 
     Vector3 velocity = Vector3.zero;
 
@@ -41,8 +44,13 @@ public class CharacterController : MonoBehaviour
         get { return playerRotation; }
     }
 
-	// Use this for initialization
-	void Start ()
+
+    private void Awake()
+    {
+        health.Init();
+    }
+    // Use this for initialization
+    void Start ()
     {
         playerRotation = transform.rotation;
         if (GetComponent<Rigidbody>())
@@ -55,7 +63,7 @@ public class CharacterController : MonoBehaviour
         forwardInput = rotateInput = jumpInput = 0;
 
         anim = GetComponent<Animator>();
-        barScript = GetComponent<BarScripts>();
+        barScript = GetComponent<BarScript>();
 	}
 
     void getInput()
@@ -75,7 +83,7 @@ public class CharacterController : MonoBehaviour
             PlayerWins();
         }
 
-        if (health == 0)
+        if (health.CurrentValue == 0)
         {
             isDead = true;
             PlayerDies();
@@ -132,18 +140,18 @@ public class CharacterController : MonoBehaviour
     {
         if (collision.gameObject.tag == "minute")
         {
-            health -= 10f;
+            health.CurrentValue -= 10f;
             Debug.Log(health);
         }
         else if (collision.gameObject.tag == "hour")
         {
-            health -= 20f;
+            health.CurrentValue -= 20f;
             Debug.Log(health);
 
         }
         else if (collision.gameObject.tag == "Stand")
         {
-            health = 100f;
+            health.CurrentValue = 100f;
             Debug.Log(health);
 
         }

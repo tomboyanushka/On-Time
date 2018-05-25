@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterController : MonoBehaviour
 {
+    public GameObject gameOverPanel;
+    public Text gameOverText;
 
     public float inputDelay = 0.1f;
     public float forwardVelocity = 12;
@@ -48,6 +51,7 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         health.Init();
+        gameOverPanel.SetActive(false);
     }
     // Use this for initialization
     void Start ()
@@ -81,12 +85,16 @@ public class CharacterController : MonoBehaviour
         if (toolCount == 5 && isDead == false)
         {
             PlayerWins();
+            
+            
+            
         }
 
-        if (health.CurrentValue == 0)
+        else if (health.CurrentValue == 0)
         {
             isDead = true;
             PlayerDies();
+           
         }
     }
 
@@ -157,7 +165,7 @@ public class CharacterController : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Tool")
         {
-            anim.Play("");
+            anim.SetTrigger("Tool");
             Destroy(collision.gameObject);
             toolCount += 1;
         }
@@ -165,12 +173,16 @@ public class CharacterController : MonoBehaviour
 
     void PlayerWins()
     {
-        Debug.Log("You Win!");
+        this.gameObject.SetActive(false);
+        gameOverPanel.SetActive(true);
+        gameOverText.text = "You win, You have restored Time itself!";
     }
 
     void PlayerDies()
     {
-        Debug.Log("Game Over");
+        this.gameObject.SetActive(false);
+        gameOverPanel.SetActive(true);
+        gameOverText.text = "Tick Tock, your time has run out";
     }
 
 }

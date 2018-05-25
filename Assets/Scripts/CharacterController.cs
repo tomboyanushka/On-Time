@@ -14,8 +14,11 @@ public class CharacterController : MonoBehaviour
     public float downwardAccel = 1.0f;
     private float toolCount = 0;
     private bool isDead = false;
+    public float health = 100.0f;
+
 
     Animator anim;
+    BarScripts barScript;
 
     Vector3 velocity = Vector3.zero;
 
@@ -25,7 +28,6 @@ public class CharacterController : MonoBehaviour
     }
 
 
-    public float health = 100f;
 
     Quaternion playerRotation;
 
@@ -53,6 +55,7 @@ public class CharacterController : MonoBehaviour
         forwardInput = rotateInput = jumpInput = 0;
 
         anim = GetComponent<Animator>();
+        barScript = GetComponent<BarScripts>();
 	}
 
     void getInput()
